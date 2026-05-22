@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: production-ingress
+
+spec:
+  ingressClassName: nginx
+
+  rules:
+  - host: production.example.com
+
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+
+        backend:
+          service:
+            name: production-service
+
+            port:
+              number: 80

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: production-app
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: production-app
+
+  template:
+    metadata:
+      labels:
+        app: production-app
+
+    spec:
+      containers:
+      - name: production-app
+
+        image: production-app:latest
+
+        ports:
+        - containerPort: 80
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
